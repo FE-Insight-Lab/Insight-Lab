@@ -1,0 +1,15 @@
+@font-face {
+  font-family: pretendard;
+  src: url('/fonts/PretendardVariable.woff2') format('woff2');
+  font-style: normal;
+  font-display: swap;
+  font-weight: normal;
+}
+
+@utility font-pretendard {
+  font-family: pretendard;
+}
+
+body {
+  font-family: pretendard, Helvetica, sans-serif;
+}

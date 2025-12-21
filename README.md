@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Insight Lab
 
-## Getting Started
+Insight Lab은 네이버부스트캠프 웹・모바일 10기에서 만난 네 명의 프론트엔드 지망생이 함께 만든 스터디 저장소입니다.  
+다양한 기술을 학습하고 지식을 공유하기 위해 만들어진 공간으로, 서로의 인사이트를 나누는 것을 목표로 합니다.
 
-First, run the development server:
+<br />
+
+|                              로키                               |                          주디                           |                            제리                            |                           하니                            |
+| :-------------------------------------------------------------: | :-----------------------------------------------------: | :--------------------------------------------------------: | :-------------------------------------------------------: |
+| ![김동균 프로필](https://github.com/KimDongGyun23.png?size=150) | ![이세비 프로필](https://github.com/2seb2.png?size=150) | ![이시영 프로필](https://github.com/Yeong-si.png?size=150) | ![최재영 프로필](https://github.com/cjy3458.png?size=150) |
+|          [김동균](https://github.com/KimDongGyun23-Gi)          |           [이세비](https://github.com/2seb2)            |           [이시영](https://github.com/Yeong-si)            |           [최재영](https://github.com/cjy3458)            |
+
+<br />
+
+---
+
+<br />
+
+## 시작하기
 
 ```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 빌드
+npm run build
+
+# 프로덕션 실행
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<br />
 
-## Learn More
+## 프로젝트 구조
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+├── _components/      # 공통 컴포넌트
+├── _constants/       # 상수 및 더미 데이터
+├── _styles/          # 스타일 파일
+├── _types/           # TypeScript 타입 정의
+├── about/            # About 페이지
+├── articles/         # 아티클 상세 페이지
+└── members/          # 멤버 페이지
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+<br />
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 버전 기록
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| 버전   | 날짜       | 담당자 | 설명                                                               |
+| ------ | ---------- | ------ | ------------------------------------------------------------------ |
+| v0.1.0 | 2025-12-21 | 김동균 | 초기 버전 - 더미 데이터를 활용한 페이지 이동 구현 (데이터 패칭 전) |
