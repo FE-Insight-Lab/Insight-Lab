@@ -1,10 +1,10 @@
-export interface ArticleCardType {
+export interface Article {
   id: string
   title: string
   author: string
   date: string
-  tags: readonly string[]
+  tags: string[]
   summary: string
   imageUrl: string
-  content?: string
+  url: string
 }

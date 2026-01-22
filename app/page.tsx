@@ -1,8 +1,9 @@
 import { ArticleCard } from '@/app/_components/article-card'
 import { PageHeader } from '@/app/_components/page-header'
-import { DUMMY_ARTICLES } from '@/app/_constants/dummy'
+import { getArticles } from './_lib/notion/api'
 
 export default async function Home() {
+  const articles = await getArticles()
   return (
     <main className='mx-auto max-w-7xl px-6 py-12'>
       <PageHeader
@@ -13,11 +14,10 @@ export default async function Home() {
       <div className='mt-16'>
         <header className='flex-between-center'>
           <p className='text-medium text-sm leading-5 text-black'>학습 LOG</p>
-          <p className='text-grey-500 text-sm leading-5'>총 N개의 글</p>
         </header>
 
-        <section className='mt-8 grid grid-cols-3 gap-6'>
-          {DUMMY_ARTICLES.map((article) => (
+        <section className='mt-8 grid gap-6 md:grid-cols-3'>
+          {articles.map((article) => (
             <ArticleCard key={article.title} article={article} />
           ))}
         </section>

@@ -1,42 +1,48 @@
-'use client'
+import NotionRenderer from '@/app/_components/notion/notion-renderer'
+import { getArticleBlocks, getArticleMetadata } from '@/app/_lib/notion/api'
+import { notFound } from 'next/navigation'
+import { RelatedArticlesSection } from './_components/related-articles-section'
+import { Suspense } from 'react'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
-
-import { DUMMY_ARTICLES } from '@/app/_constants/dummy'
-import { ROUTES } from '@/app/_constants/routes'
-import { RelatedArticlesSection } from '@/app/articles/[articleId]/_components/related-articles-section'
-import { ArticleContent } from '@/app/articles/[articleId]/_components/article-content'
-import { ArticleHeader } from '@/app/articles/[articleId]/_components/article-header'
+async function ArticleBody({ articleId }: { articleId: string }) {
+  const blocks = await getArticleBlocks(articleId)
+  console.log(
+    blocks.map((block) => {
+      if (block.type === 'heading_1') console.log(block.heading_1)
+    }),
+  )
+  if (!blocks) return null
+  return <NotionRenderer blocks={blocks} />
+}
 
 /**
  * 아티클 상세 페이지 컴포넌트
  * @returns 아티클 상세 페이지 JSX 요소
  */
-export default function ArticlePage() {
-  const { articleId } = useParams<{ articleId: string }>()
 
-  // TODO: 실제 데이터 패칭 로직으로 대체 필요
-  const dummyArticle = DUMMY_ARTICLES.find((article) => article.id === articleId)!
+export default async function ArticlePage({ params }: { params: Promise<{ articleId: string }> }) {
+  const { articleId } = await params
+  const article = await getArticleMetadata(articleId)
+
+  if (!article) notFound()
 
   return (
-    <main className='flex-column mx-auto mb-20 max-w-3xl gap-8 px-6 py-12'>
-      <Link href={ROUTES.HOME} className='flex-align-center gap-2'>
-        <Image src='/icons/arrow-left.svg' alt='홈으로 돌아가기' width={16} height={16} />
-        <span className='text-grey-500 text-sm leading-5'>목록으로</span>
-      </Link>
-
-      <ArticleHeader article={dummyArticle} />
-      <Image
-        src={dummyArticle.imageUrl}
-        alt='게시글 썸네일'
-        width={720}
-        height={368}
-        className='rounded-2xl'
-      />
-      <ArticleContent article={dummyArticle} />
-      <RelatedArticlesSection />
+    <main className='mx-auto max-w-3xl px-6 py-12'>
+      <header className='mb-12'>
+        <h1 className='mb-4 text-4xl font-bold'>{article.title}</h1>
+        <div className='flex gap-4 text-sm text-gray-500'>
+          <span>{article.author}</span>
+          <span>{article.date}</span>
+        </div>
+      </header>
+      <article>
+        <Suspense fallback={<div className='h-64 w-full animate-pulse rounded-lg bg-gray-100' />}>
+          <ArticleBody articleId={articleId} />
+        </Suspense>
+      </article>
+      <Suspense fallback={<div>loading ... </div>}>
+        <RelatedArticlesSection tags={article.tags} currentId={articleId} />
+      </Suspense>
     </main>
   )
 }

@@ -9,28 +9,47 @@ interface ArticleCardProps {
   article: ArticleCardType
 }
 
+const isUrl = (value: string) => {
+  if (!value) return false
+
+  if (value.startsWith('/')) return true
+
+  if (value.startsWith('http://') || value.startsWith('https://')) return true
+
+  return false
+}
+
 /**
  * 아티클 카드 컴포넌트
  * @param article 아티클 데이터
  * @returns 아티클 카드 JSX 요소
  */
 export const ArticleCard = ({ article }: ArticleCardProps) => {
+  const { imageUrl } = article
+  const isImage = imageUrl && isUrl(imageUrl)
+
   return (
     <Link
       href={ROUTES.ARTICLES(article.id)}
       className='hover:shadow-card flex-column overflow-hidden rounded-2xl transition-shadow duration-200'
     >
-      <Image
-        src={article.imageUrl}
-        alt={article.title}
-        width={368}
-        height={207}
-        className='h-51.75 w-full object-cover'
-      />
+      {isImage ? (
+        <Image
+          src={imageUrl}
+          alt={article.title}
+          width={368}
+          height={207}
+          className='h-51.75 w-full object-contain'
+        />
+      ) : (
+        <div className='flex h-[207px] w-full items-center justify-center bg-gray-100'>
+          <span className='text-7xl'>{imageUrl}</span>
+        </div>
+      )}
 
       <div className='flex-column grow p-5'>
         <div className='flex-column grow gap-2 overflow-hidden'>
-          <ul className='flex gap-2 overflow-x-scroll'>
+          <ul className='over flow-x-auto flex gap-2'>
             {article.tags.map((tag) => (
               <Tag tag={tag} key={tag} size='sm' />
             ))}

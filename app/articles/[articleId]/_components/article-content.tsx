@@ -7,10 +7,10 @@ import { ArticleCardType } from '@/app/_types/article'
  */
 export const ArticleContent = ({ article }: { article: ArticleCardType }) => {
   //TODO: 실제 데이터 구조에 맞게 수정 필요
-
+  if (!article.content) return
   return (
     <section>
-      {article.content.split('\n').map((paragraph, index) => (
+      {article?.content.split('\n').map((paragraph, index) => (
         <p key={index} className='whitespace-pre-wrap text-black'>
           {paragraph}
         </p>
